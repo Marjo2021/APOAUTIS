@@ -1,0 +1,73 @@
+
+
+ <h4 class="text-center"><strong>{{  _servi.form.get('Cod_registro_servicio_social')?.value ? "ACTUALIZAR":"CREAR"}}</strong>
+ </h4>
+<div class="row" *ngIf="! _servi.form.get('Cod_registro_servicio_social')?.value">
+
+  <div class="col-lg-12">
+    <label><strong>Persona</strong> </label>
+  </div>
+  <div class="col-lg-6">
+       <input class="form-control" maxlength="13" minlength="13" placeholder="Identidad" [(ngModel)]="text">
+  </div>
+  <div class="col-lg-6">
+    <button mat-raised-button class="btn btn-primary btn-block" color="accent"
+    (click)="buscar()">buscar</button>
+  </div>
+  <br>
+  <h6  *ngIf="si"><strong>Nombre: </strong>{{resultado[0]?.Nombre}} {{resultado[0]?.Apellido }}</h6>
+  <h6 *ngIf="sinresultado">Sin resultado</h6>
+</div>
+<br *ngIf="! _servi.form.get('Cod_registro_servicio_social')?.value">
+
+
+<div class="row" *ngIf="! _servi.form.get('Cod_registro_servicio_social')?.value">
+
+  <div class="col-lg-12">
+    <label><strong>Colaborador</strong> </label>
+  </div>
+  <div class="col-lg-6">
+       <input class="form-control" maxlength="13" minlength="13" placeholder="Identidad" [(ngModel)]="colaborador">
+  </div>
+  <div class="col-lg-6">
+    <button mat-raised-button class="btn btn-primary btn-block" color="accent"
+    (click)="buscarcolaborador()">buscar</button>
+  </div>
+  <br>
+  <h6  *ngIf="sic"><strong>Nombre: </strong>{{resultadoc[0]?.Nombre}} {{resultadoc[0]?.Apellido }}</h6>
+  <h6 *ngIf="sinresultadoc">Sin resultado</h6>
+</div>
+<br *ngIf="! _servi.form.get('Cod_registro_servicio_social')?.value">
+<form autocomplete="off" [formGroup]="_servi.form">
+  <div class="row ">
+
+
+          <br>
+          <div class="col-lg-12 box">
+          <mat-form-field appearance="fill">
+            <mat-label>Servicio social</mat-label>
+            <mat-select formControlName="Cod_servicio_social">
+              <mat-option *ngFor="let option of _servi.responseservicio$ | async" [value]="option.Cod_servicio_social">
+                {{option.Nombre_servicio_social}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+          <br>
+        <div class="col-lg-12 box">
+          <mat-form-field aclass="example-full-width" appearance="legacy">
+            <mat-label>Fecha realizacion</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="Fecha_realizacion">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+      </div>
+        <br>
+       
+        <div class="col-lg-12 box">
+              <button mat-raised-button class="btn btn-primary p-2" color="accent" (click)="guardar()">{{_servi.form.get('Cod_registro_servicio_social')?.value ? "ACTUALIZAR ":"CREAR"}}</button>
+              <button mat-raised-button color="warn" class="btn btn-danger p-2"  (click)="cerrarmodal()">Cerrar</button>
+          </div>
+      </div>
+</form>
